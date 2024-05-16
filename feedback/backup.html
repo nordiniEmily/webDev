@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simple Form Submission</title>
+<script>
+    function handleSubmit() {
+        var textAreaContent = document.getElementById('inputText').value;
+        document.getElementById('displayArea').innerText = textAreaContent;
+        return false; // Prevent default form submission behavior
+    }
+</script>
+</head>
+<body>
+    <h1>Rate your experience</h1>
+    <!-- onsubmit="return handleSubmit();" -->
+    <form action="" method="POST">
+        <label for="inputText">Email:</label>
+        <input type="text" id="feedbackEmail" name="feedbackEmail" placeholder="Enter your email here">
+       <br><br><br>
+
+        <label for="inputText">We highly value your feedback! <br> Kindly take a moment to rate your experienxe and provide us with your valuable feedback.</label><br><br>
+        <textarea id="inputText" name="inputText" placeholder="Tell about your experience!" rows="4" cols="50"></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form><br><br><hr>
+    <?php
+    if(isset($_POST['submit']))
+    {
+        $email=$_POST['email'];
+        $feedback=$_POST['feedback'];
+
+        $result=mysqli_query($mysqli,"INSERT into feedback values('','$email','$feedback')");
+        if($result)
+        {
+            echo "Success";
+        }else{
+            echo "Failed";
+        }
+    }
+    
+    <h2>Feedback:</h2>
+    <div id="displayArea"></div>
+</body>
+</html>
+
